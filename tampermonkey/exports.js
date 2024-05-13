@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Script to enable the use of CMD with ChatGPT
+// @name         Script to enable export in ChatGPT
 // @namespace    http://tampermonkey.net/
 // @version      2024-05-13
 // @description  try to take over the world!
@@ -7,16 +7,15 @@
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
 // @grant        none
-// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/prompts/ja.js
-// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/scripts/cmd.js
+// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/scripts/exports.js
 // ==/UserScript==
 
 (function () {
   'use strict';
   async function main() {
     try {
-      if (typeof cmd === 'function') {
-        cmd(ja_promptData);
+      if (typeof exports === 'function') {
+        exports();
       } else {
         console.error("cmd is not a function");
       }
