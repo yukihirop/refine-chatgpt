@@ -21,7 +21,7 @@
         console.error("cmd is not a function");
       }
     } catch (e) {
-      console.error(`ERROR: Execution of script 'A prompt to enable the use of CMD with ChatGPT' failed!`, e);
+      console.error(`ERROR: Execution of script 'Script to enable the use of CMD with ChatGPT' failed!`, e);
     }
   }
 
