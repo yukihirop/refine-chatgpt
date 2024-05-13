@@ -1,3 +1,43 @@
+function saveFile(name, content) {
+  const blob = new Blob([content], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// download_listの代替
+function downloadList(pathname, filename, id, dir) {
+  // ダウンロードするデータの準備
+  const data = JSON.stringify({ pathname, filename, id, dir });
+  saveFile(filename, data);
+}
+
+function downloadFile(name, data) {
+  const blob = new Blob([new Uint8Array(data)], { type: 'application/octet-stream' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = name;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function fetchImage(url) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  const blob = await response.blob();
+  return blob;
+}
+
 /**
  * @name export.js
  * @version 0.1.5
@@ -53,8 +93,10 @@ async function exports() {
 
       const data = ExportMD.turndown(updatedContent);
       const { id, filename } = getName();
-      await invoke('save_file', { name: `notes/${id}.md`, content: data });
-      await invoke('download_list', { pathname: 'chat.notes.json', filename, id, dir: 'notes' });
+      // await invoke('save_file', { name: `notes/${id}.md`, content: data });
+      // await invoke('download_list', { pathname: 'chat.notes.json', filename, id, dir: 'notes' });
+      saveFile(`notes_${id}.md`, data);
+      downloadList('chat.notes.json', filename, id, 'notes');
     }
 
     async function downloadThread({ as = Format.PNG } = {}) {
@@ -91,7 +133,8 @@ async function exports() {
         data.push(binaryData.charCodeAt(i));
       }
       const name = `ChatGPT_${formatDateTime()}.png`;
-      await invoke('download_file', { name: name, blob: data });
+      // await invoke('download_file', { name: name, blob: data });
+      downloadFile(name, data)
     }
 
     async function handlePdf(imgData, canvas, pixelRatio) {
@@ -104,7 +147,8 @@ async function exports() {
       const data = pdf.__private__.getArrayBuffer(pdf.__private__.buildDocument());
 
       const name = `ChatGPT_${formatDateTime()}.pdf`;
-      await invoke('download_file', { name: name, blob: Array.from(new Uint8Array(data)) });
+      // await invoke('download_file', { name: name, blob: Array.from(new Uint8Array(data)) });
+      downloadFile(name, Array.from(new Uint8Array(data)))
     }
 
     class Elements {
@@ -157,7 +201,8 @@ async function exports() {
           const src = img.getAttribute('src');
           if (!/^http/.test(src)) return;
           if (['fileserviceuploadsperm.blob.core.windows.net'].includes(new URL(src)?.host)) return;
-          const data = await invoke('fetch_image', { url: src });
+          // const data = await invoke('fetch_image', { url: src });
+          const data = await fetchImage(src);
           const blob = new Blob([new Uint8Array(data)], { type: 'image/png' });
           img.src = URL.createObjectURL(blob);
         });
