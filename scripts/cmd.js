@@ -1,4 +1,4 @@
-function cmdInit(promptData) {
+function cmd(promptData) {
   function _cmdInit(data) {
     const styleElement = document.createElement('style');
     styleElement.innerHTML = `

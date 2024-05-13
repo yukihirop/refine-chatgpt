@@ -1,4 +1,4 @@
-[
+const en_promptData= [
   {
     "cmd": "an_ethereum_developer",
     "act": "An Ethereum Developer",

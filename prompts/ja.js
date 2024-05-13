@@ -1,4 +1,4 @@
-const promptData = [
+const ja_promptData = [
   {
     "cmd": "an_ethereum_developer",
     "act": "Ethereum開発者",
