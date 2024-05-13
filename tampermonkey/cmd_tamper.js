@@ -7,6 +7,7 @@
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
 // @grant        none
+// @require      https://cdn.jsdelivr.net/gh/GoogleChrome/prompt/prompt.js
 // ==/UserScript==
 
 (function () {
