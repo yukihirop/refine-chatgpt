@@ -7,11 +7,24 @@
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
 // @grant        none
-// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/cmd_init.js
 // @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/prompt.js
+// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/cmd_init.js
 // ==/UserScript==
 
 (function () {
   'use strict';
-  cmdInit(promptData)
+  async function main() {
+    try {
+      console.log(JSON.stringify(promptData));
+      if (typeof cmdInit === 'function') {
+        cmdInit(promptData);
+      } else {
+        console.error("cmdInit is not a function");
+      }
+    } catch (e) {
+      console.error(`ERROR: Execution of script 'chatgptでcmdを使えるようにするprompt v2' failed!`, e);
+    }
+  }
+
+  main();
 })();
