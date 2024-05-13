@@ -7,6 +7,7 @@
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
 // @grant        none
+// @require      https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js
 // @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/scripts/exports.js
 // ==/UserScript==
 
