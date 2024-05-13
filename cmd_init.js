@@ -345,6 +345,6 @@ function cmdInit(promptData) {
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     _cmdInit(promptData);
   } else {
-    document.addEventListener('DOMContentLoaded', cmdInit);
+    document.addEventListener('DOMContentLoaded', _cmdInit);
   }
 }
