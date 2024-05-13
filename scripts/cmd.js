@@ -156,8 +156,6 @@ function cmd(promptData) {
       //const chatPromptData = (await invoke('get_chat_prompt_cmd')) || {};
       //const data = chatPromptData.data;
 
-      console.log(JSON.stringify(data))
-
       if (data.length <= 0) return;
 
       let promptElement = document.querySelector('.chat-prompt-cmd-list');
