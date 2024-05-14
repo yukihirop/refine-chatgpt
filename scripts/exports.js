@@ -138,7 +138,7 @@ async function exports() {
     }
 
     async function handlePdf(imgData, canvas, pixelRatio) {
-      const { jsPDF } = window.jspdf;
+      const { jsPDF } = jspdf;
       const orientation = canvas.width > canvas.height ? 'l' : 'p';
       var pdf = new jsPDF(orientation, 'pt', [canvas.width / pixelRatio, canvas.height / pixelRatio]);
       var pdfWidth = pdf.internal.pageSize.getWidth();
