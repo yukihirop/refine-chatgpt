@@ -8,14 +8,15 @@ function cmd(promptData) {
   .chat-prompt-cmd-list {
     position: absolute;
     bottom: 60px;
-    max-height: 100px;
+    max-height: 200px;
     width: 100%;
     overflow: auto;
     z-index: 9999;
+    border: solid 1px rgb(150,150,150);
+    border-radius: 5px;
+    box_sizing: border-box;
   }
   .chat-prompt-cmd-list>div {
-    border: solid 2px rgba(80,80,80,.3);
-    border-radius: 5px;
     background-color: #fff;
   }
   html.dark .chat-prompt-cmd-list>div {
@@ -36,7 +37,7 @@ function cmd(promptData) {
   .chat-prompt-cmd-list .cmd-item {
     font-size: 12px;
     border-bottom: solid 1px rgba(80,80,80,.2);
-    padding: 2px 4px;
+    padding: 4px;
     display: flex;
     user-select: none;
     cursor: pointer;
