@@ -86,6 +86,8 @@ function cmd(promptData) {
     }
   }
 `;
+
+
     document.head.append(styleElement);
 
     if (window.formInterval) {
@@ -282,7 +284,7 @@ function cmd(promptData) {
             delete window.__CHAT_CMD_PROMPT__;
           }
 
-          if (event.keyCode === 13 && window.__CHAT_CMD_PROMPT__) {
+          if (event.key === "Enter" && event.isComposing === false && window.__CHAT_CMD_PROMPT__) {
             const data = searchInput.value.split('|->');
             setPrompt(data[1]);
 
@@ -290,7 +292,7 @@ function cmd(promptData) {
 
             initializeDom();
 
-            event.preventDefault();
+            // event.preventDefault();
           }
         }
         searchInput.removeEventListener('keydown', handleCmdKeydown, { capture: true });
