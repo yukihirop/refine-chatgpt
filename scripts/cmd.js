@@ -115,32 +115,32 @@ function cmd(promptData) {
               }
             });
           }
-          // if (mutation.type === 'childList' && mutation.removedNodes.length) {
-          //   for (let node of mutation.removedNodes) {
-          //     if (node.querySelector('form textarea')) {
-          //       initializeDom();
-          //       initiateCmdTip();
-          //       (async function () {
-          //        async function getPlatform() {
-          //          return invoke('platform', {
-          //            __tauriModule: 'Os',
-          //            message: { cmd: 'platform' },
-          //          });
-          //        }
-          //        if (__TAURI_METADATA__.__currentWindow.label !== 'tray') {
-          //          const platform = await getPlatform();
-          //          const chatConfig = (await invoke('get_app_conf')) || {};
-          //          if (/darwin/.test(platform) && !chatConfig.titlebar) {
-          //            const nav = document.body.querySelector('nav');
-          //            if (nav) {
-          //              nav.style.paddingTop = '25px';
-          //            }
-          //          }
-          //        }
-          //      })();
-          //     }
-          //   }
-          // }
+          if (mutation.type === 'childList' && mutation.removedNodes.length) {
+            for (let node of mutation.removedNodes) {
+              if (node && typeof node.querySelector === "function" && node.querySelector('form textarea')) {
+                initializeDom();
+                initiateCmdTip();
+                //   (async function () {
+                //    async function getPlatform() {
+                //      return invoke('platform', {
+                //        __tauriModule: 'Os',
+                //        message: { cmd: 'platform' },
+                //      });
+                //    }
+                //    if (__TAURI_METADATA__.__currentWindow.label !== 'tray') {
+                //      const platform = await getPlatform();
+                //      const chatConfig = (await invoke('get_app_conf')) || {};
+                //      if (/darwin/.test(platform) && !chatConfig.titlebar) {
+                //        const nav = document.body.querySelector('nav');
+                //        if (nav) {
+                //          nav.style.paddingTop = '25px';
+                //        }
+                //      }
+                //    }
+                //  })();
+              }
+            }
+          }
         }
       }).observe(document.body, {
         childList: true,
