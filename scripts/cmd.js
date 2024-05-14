@@ -9,6 +9,7 @@ function cmd(promptData) {
     position: absolute;
     bottom: 60px;
     max-height: 100px;
+    width: 100%;
     overflow: auto;
     z-index: 9999;
   }
