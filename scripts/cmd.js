@@ -40,6 +40,7 @@ function cmd(promptData) {
     display: flex;
     user-select: none;
     cursor: pointer;
+    justify-content: space-between;
   }
   .chat-prompt-cmd-list .cmd-item:last-child {
     border-bottom: none;
@@ -49,7 +50,6 @@ function cmd(promptData) {
   }
   .chat-prompt-cmd-list .cmd-item b {
     display: inline-block;
-    width: 100px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
