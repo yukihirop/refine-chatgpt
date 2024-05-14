@@ -59,7 +59,7 @@ function cmd(promptData) {
   }
   .chat-prompt-cmd-list .cmd-item i {
     width: 100%;
-    max-width: 200px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
