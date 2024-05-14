@@ -402,24 +402,50 @@ function cmd(promptData) {
     }
   }
 
+  function autoResize() {
+    const textarea = document.getElementById('prompt-textarea');
+    textarea.style.height = 'auto'; // Reset the height to auto to calculate the new height
+    textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scrollHeight
+  }
+
+  function updatePreviewBottom() {
+    const listElement = document.querySelector('.chat-prompt-cmd-list');
+    if (listElement) {
+      const listHeight = listElement.offsetHeight;
+      const previewElement = document.querySelector('.chat-prompt-cmd-preview');
+      if (previewElement) {
+        if (listHeight === 0) {
+          // バグ
+          previewElement.style.bottom = `160px`;
+        } else {
+          previewElement.style.bottom = `${listHeight + 60}px`;
+        }
+      }
+    }
+  }
+
   function _promptTextareaInit() {
     const textarea = document.getElementById('prompt-textarea');
+    textarea.addEventListener('input', function () {
+      autoResize()
+      updatePreviewBottom()
+    });
+  }
 
-    function autoResize() {
-      textarea.style.height = 'auto'; // Reset the height to auto to calculate the new height
-      textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scrollHeight
-    }
-
-    textarea.addEventListener('input', autoResize);
+  function _previewBottomInit() {
+    // リサイズイベントを監視して更新
+    window.addEventListener('resize', updatePreviewBottom);
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     _cmdInit(promptData);
     _promptTextareaInit();
+    _previewBottomInit()
   } else {
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function () {
       _cmdInit()
       _promptTextareaInit()
+      _previewBottomInit()
     });
   }
 }
