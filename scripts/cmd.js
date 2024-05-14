@@ -350,7 +350,7 @@ function cmd(promptData) {
           }
         }
         searchInput.removeEventListener('keydown', handleCmdKeydown, { capture: true });
-        searchInput.addEventListener('keydown', handleCmdKeydown);
+        searchInput.addEventListener('keydown', handleCmdKeydown, { capture: true });
 
         function handleCmdInput() {
           if (searchInput.value === '') {
@@ -402,9 +402,24 @@ function cmd(promptData) {
     }
   }
 
+  function _promptTextareaInit() {
+    const textarea = document.getElementById('prompt-textarea');
+
+    function autoResize() {
+      textarea.style.height = 'auto'; // Reset the height to auto to calculate the new height
+      textarea.style.height = textarea.scrollHeight + 'px'; // Set the height to the scrollHeight
+    }
+
+    textarea.addEventListener('input', autoResize);
+  }
+
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     _cmdInit(promptData);
+    _promptTextareaInit();
   } else {
-    document.addEventListener('DOMContentLoaded', _cmdInit);
+    document.addEventListener('DOMContentLoaded', () => {
+      _cmdInit()
+      _promptTextareaInit()
+    });
   }
 }
