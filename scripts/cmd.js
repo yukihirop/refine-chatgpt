@@ -5,10 +5,29 @@ function cmd(promptData) {
   form {
     position: relative;
   }
+  .chat-prompt-cmd-preview {
+    width: 100%;
+    height: content;
+    margin-bottom: 10px;
+    resize: none;
+    overflow: hidden;
+    border: solid 1px rgb(150,150,150);
+    border-radius: 5px;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 160px;
+    overflow: auto;
+    background-color: #fff;
+  }
+  .chat-prompt-cmd-preview > p {
+    font-size: 16px;
+    margin: 14px;
+    line-height: 24px;
+  }
   .chat-prompt-cmd-list {
     position: absolute;
     bottom: 60px;
-    max-height: 200px;
+    max-height: 100px;
     width: 100%;
     overflow: auto;
     z-index: 9999;
@@ -113,7 +132,12 @@ function cmd(promptData) {
               const item = event.target.closest('div');
               if (item) {
                 const value = decodeURIComponent(item.getAttribute('data-prompt'));
+                const previewElement = document.querySelector('.chat-prompt-cmd-preview');
                 searchInput.value = value;
+                if (previewElement) {
+                  previewElement.innerHTML = `<p>${value}</p>`;
+                  previewElement.style.display = 'block';
+                }
                 document.querySelector('form textarea').focus();
                 initializeDom();
               }
@@ -160,12 +184,26 @@ function cmd(promptData) {
 
       if (data.length <= 0) return;
 
+      let previewElement = document.querySelector('.chat-prompt-cmd-preview');
+      if (!previewElement) {
+        const divElement_preview = document.createElement('div');
+        divElement_preview.classList.add('chat-prompt-cmd-preview');
+        document.querySelector('form').appendChild(divElement_preview);
+        previewElement = document.querySelector('.chat-prompt-cmd-preview');
+        if (previewElement) {
+          previewElement.style.display = 'none';
+        }
+      }
+
       let promptElement = document.querySelector('.chat-prompt-cmd-list');
       if (!promptElement) {
-        const divElement = document.createElement('div');
-        divElement.classList.add('chat-prompt-cmd-list');
-        document.querySelector('form').appendChild(divElement);
+        const divElement_cmdList = document.createElement('div');
+        divElement_cmdList.classList.add('chat-prompt-cmd-list');
+        document.querySelector('form').appendChild(divElement_cmdList);
         promptElement = document.querySelector('.chat-prompt-cmd-list');
+        if (promptElement) {
+          promptElement.style.display = 'none';
+        }
 
         /**
         if (__TAURI_METADATA__.__currentWindow.label === 'tray') {
@@ -189,11 +227,14 @@ function cmd(promptData) {
         const renderList = (items) => {
           initializeDom();
           promptElement.innerHTML = `<div>${items.map(createItemElement).join('')}</div>`;
+          promptElement.style.display = 'block';
           window.__CHAT_CMD_PROMPT__ = items[0]?.prompt.trim();
           window.__CHAT_CMD__ = items[0]?.cmd.trim();
           window.__cmd_list = promptElement.querySelectorAll('.cmd-item');
           window.__cmd_index = 0;
           window.__cmd_list[window.__cmd_index].classList.add('selected');
+          previewElement.innerHTML = `<p>${window.__CHAT_CMD_PROMPT__}</p>`;
+          previewElement.style.display = 'block';
         };
         const setPrompt = (value = '') => {
           if (value.trim()) {
@@ -219,7 +260,8 @@ function cmd(promptData) {
             return;
           }
 
-          if (event.keyCode === 38 && window.__cmd_index > 0) {
+          // 上矢印
+          if (event.key === "ArrowUp" && window.__cmd_index > 0) {
             window.__cmd_list[window.__cmd_index].classList.remove('selected');
             window.__cmd_index -= 1;
             window.__cmd_list[window.__cmd_index].classList.add('selected');
@@ -227,10 +269,15 @@ function cmd(promptData) {
               window.__cmd_list[window.__cmd_index].getAttribute('data-prompt'),
             );
             searchInput.value = `/${window.__cmd_list[window.__cmd_index].getAttribute('data-cmd')}`;
+            if (previewElement) {
+              previewElement.innerHTML = `<p>${window.__CHAT_CMD_PROMPT__}</p>`;
+              previewElement.style.display = 'block';
+            }
             event.preventDefault();
           }
 
-          if (event.keyCode === 40 && window.__cmd_index < window.__cmd_list.length - 1) {
+          // 下矢印
+          if (event.key === "ArrowDown" && window.__cmd_index < window.__cmd_list.length - 1) {
             window.__cmd_list[window.__cmd_index].classList.remove('selected');
             window.__cmd_index += 1;
             window.__cmd_list[window.__cmd_index].classList.add('selected');
@@ -238,6 +285,10 @@ function cmd(promptData) {
               window.__cmd_list[window.__cmd_index].getAttribute('data-prompt'),
             );
             searchInput.value = `/${window.__cmd_list[window.__cmd_index].getAttribute('data-cmd')}`;
+            if (previewElement) {
+              previewElement.innerHTML = `<p>${window.__CHAT_CMD_PROMPT__}</p>`;
+              previewElement.style.display = 'block';
+            }
             event.preventDefault();
           }
 
@@ -250,7 +301,7 @@ function cmd(promptData) {
             promptElement.scrollTop = itemTop;
           }
 
-          if (event.keyCode === 9 && !window.__CHAT_STATUS__) {
+          if (event.key === 'Tab' && !window.__CHAT_STATUS__) {
             const strGroup = window.__CHAT_CMD_PROMPT__.match(/\{([^{}]*)\}/) || [];
 
             if (strGroup[1]) {
@@ -263,7 +314,7 @@ function cmd(promptData) {
             event.preventDefault();
           }
 
-          if (window.__CHAT_STATUS__ === 1 && event.keyCode === 9) {
+          if (window.__CHAT_STATUS__ === 1 && event.key === 'Tab') {
             const data = searchInput.value.split('|->');
             if (data[1]?.trim()) {
               setPrompt(data[1]);
@@ -272,32 +323,34 @@ function cmd(promptData) {
             event.preventDefault();
           }
 
-          if (window.__CHAT_STATUS__ === 2 && event.keyCode === 9) {
+          if (window.__CHAT_STATUS__ === 2 && event.key === 'Tab') {
             searchInput.value = window.__CHAT_CMD_PROMPT__;
             promptElement.innerHTML = '';
+            promptElement.style.display = 'none';
             delete window.__CHAT_STATUS__;
             event.preventDefault();
           }
 
-          if (event.keyCode === 32) {
+          if (event.key === 'Space') {
             searchInput.value = window.__CHAT_CMD_PROMPT__;
             promptElement.innerHTML = '';
+            promptElement.style.display = 'none';
             delete window.__CHAT_CMD_PROMPT__;
           }
 
           if (event.key === "Enter" && event.isComposing === false && window.__CHAT_CMD_PROMPT__) {
+            event.preventDefault();
             const data = searchInput.value.split('|->');
             setPrompt(data[1]);
 
             searchInput.value = window.__CHAT_CMD_PROMPT__;
+            document.querySelector('form textarea').focus()
 
             initializeDom();
-
-            // event.preventDefault();
           }
         }
         searchInput.removeEventListener('keydown', handleCmdKeydown, { capture: true });
-        searchInput.addEventListener('keydown', handleCmdKeydown, { capture: true });
+        searchInput.addEventListener('keydown', handleCmdKeydown);
 
         function handleCmdInput() {
           if (searchInput.value === '') {
@@ -330,10 +383,17 @@ function cmd(promptData) {
     }
 
     function initializeDom() {
+      const previewElement = document.querySelector('.chat-prompt-cmd-preview');
+      if (previewElement) {
+        previewElement.innerHTML = '';
+        previewElement.style.display = 'none';
+      }
       const promptElement = document.querySelector('.chat-prompt-cmd-list');
       if (promptElement) {
         promptElement.innerHTML = '';
+        promptElement.style.display = 'none';
       }
+
       delete window.__CHAT_CMD_PROMPT__;
       delete window.__CHAT_CMD__;
       delete window.__CHAT_STATUS__;
