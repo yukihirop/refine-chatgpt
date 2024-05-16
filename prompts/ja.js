@@ -1510,5 +1510,14 @@ const ja_promptData = [
       "awesome-chatgpt-prompts"
     ],
     "enable": true
+  },
+  {
+    "cmd": "ja",
+    "act": "Japanese Translator",
+    "prompt": "日本語に翻訳して",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
   }
 ]
