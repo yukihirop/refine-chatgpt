@@ -7,7 +7,6 @@
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
 // @grant        none
-// @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/prompts/ja.js
 // @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/scripts/cmd.js
 // ==/UserScript==
 
@@ -16,6 +15,8 @@
   async function main() {
     try {
       if (typeof cmd === 'function') {
+        const data = await fetch("https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/dist/prompts/ja.json")
+        const ja_promptData = await data.json();
         cmd(ja_promptData);
       } else {
         console.error("cmd is not a function");
