@@ -6,18 +6,19 @@
   "author": "yukihirop <te108186@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky install",
-    "deploy": "node devscripts/convertToJson.js"
+    "deploy": "node devscripts/convertToJson.js",
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "husky": "^9.0.11",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.2",
     "pre-commit": "^1.2.2"
   },
   "lint-staged": {
-    "ja.js": [
+    "prompts/ja.js": [
       "npm run deploy",
-      "git add ja.json"
+      "git add ."
     ]
-  }
+  },
+  "packageManager": "yarn@4.2.2"
 }

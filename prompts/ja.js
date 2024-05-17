@@ -1723,7 +1723,7 @@ const technique = [
 ]
 
 
-ja_promptData.concat(snippets)
-ja_promptData.concat(technique.filter((item) => item.prompt !== "undefined"))
+ja_promptData.push(...snippets)
+ja_promptData.push(...technique.filter((item) => item.prompt !== "undefined"))
 
 module.exports = ja_promptData.filter(item => !!item.cmd).sort((a, b) => a.cmd.length - b.cmd.length)
