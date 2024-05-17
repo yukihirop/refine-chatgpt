@@ -6,17 +6,19 @@
   "author": "yukihirop <te108186@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "deploy": "node devscripts/convertToJson.js",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-shell": "^0.8.0",
     "husky": "^8.0.0",
     "lint-staged": "^15.2.2",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "zx": "^8.1.0"
   },
   "lint-staged": {
-    "prompts/ja.js": [
-      "npm run deploy",
+    "src/**/*.js": [
+      "npx gulp --gulpfile gulpfile.mjs",
       "git add ."
     ]
   },
