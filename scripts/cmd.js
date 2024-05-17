@@ -1,6 +1,4 @@
 function cmd(promptData) {
-  const promptData = fetch("https://raw.githubusercontent.com/tauri-apps/tauri-chat/main/src/assets/cmd.json")
-
   function _cmdInit(data) {
     const styleElement = document.createElement('style');
     styleElement.innerHTML = `
