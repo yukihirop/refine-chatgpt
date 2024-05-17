@@ -6,7 +6,8 @@
 // @author       You
 // @match        https://chatgpt.com/c/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=chatgpt.com
-// @grant        none
+// @grant        GM.xmlHttpRequest
+// @grant        GM_xmlhttpRequest
 // @require      https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/scripts/cmd.js
 // ==/UserScript==
 
@@ -15,9 +16,28 @@
   async function main() {
     try {
       if (typeof cmd === 'function') {
-        const data = await fetch("https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/dist/prompts/ja.json")
-        const ja_promptData = await data.json();
-        cmd(ja_promptData);
+
+        const url = "https://raw.githubusercontent.com/yukihirop/refine-chatgpt/master/dist/prompts/ja.json";
+
+        GM.xmlHttpRequest({
+          method: "GET",
+          url: url,
+          onload: function (response) {
+            if (response.status === 200) {
+              try {
+                const ja_promptData = JSON.parse(response.responseText);
+                cmd(ja_promptData);
+              } catch (error) {
+                console.error("JSONの解析中にエラーが発生しました:", error);
+              }
+            } else {
+              console.error("データの取得に失敗しました:", response.status, response.statusText);
+            }
+          },
+          onerror: function (error) {
+            console.error("リクエスト中にエラーが発生しました:", error);
+          }
+        });
       } else {
         console.error("cmd is not a function");
       }
