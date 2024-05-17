@@ -1,0 +1,17 @@
+{
+  "name": "refine-chatgpt",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:yukihirop/refine-chatgpt.git",
+  "author": "yukihirop <te108186@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "node devscripts/convertToJson.js"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "deploy"
+  ]
+}

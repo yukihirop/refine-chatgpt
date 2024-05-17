@@ -1510,7 +1510,10 @@ const ja_promptData = [
       "awesome-chatgpt-prompts"
     ],
     "enable": true
-  },
+  }
+]
+
+const snippets = [
   {
     "cmd": "ja",
     "act": "Japanese Translator",
@@ -1519,5 +1522,208 @@ const ja_promptData = [
       "snippets"
     ],
     "enable": true
+  },
+  {
+    "cdm": "release_gantt_chart",
+    "act": "リリース・ガントチャート",
+    "prompt": `
+    **ガントチャート作成の手順:**
+    
+    1. **データセットアップ:**
+      - 以下のような構造のテキストファイルを作成します:
+        \`\`\`
+        M=4
+    
+        - x.x.x
+            - M月20日（水）〜M月14日（火）：ブランチ作成・マージ作業・ビルドチェック（1week）
+                - M月2日（水）：リリース内容の共有（プロダクトバックログリファインメント）
+            - M月13日（水）〜M月19日（火）：QA・QA指摘修正（2week）
+                - M月13日（水）：リリース内容の共有（プロダクトバックログリファインメント、差分のみ）
+                - M月13日（水）〜M月7日（火）：不具合修正・バージョンアップなどはQAと相談して追加可能
+                - M月7日（火）：モジュールFIX
+                - M月6日（水）〜M月5日（火）：リグレッション開始
+                - M月6日（水）：リリース内容の共有（プロダクトバックログリファインメント、差分のみ）
+            - M月（火）：リリース
+        \`\`\`
+    
+    2. **日付の処理:**
+      - テキストファイルから \`M\` の値を読み取ります。
+    
+    3. **チャートのレイアウト:**
+      - この画像を参考にしてください。
+        - ![image](https://github.com/yukihirop/refine-chatgpt/assets/11146767/8adaeca6-dcf8-4d29-afb5-48706610efdd)
+      - Excelファイルを作成します。
+      - 日付行をシートの一番上に追加します。一日単位で列方向に並べてください。
+      - タスクデータを日付行の下に挿入します。
+      - 各タスクの期間が、開始日から終了日までの期間に対応するセルに色が塗られるように視覚的に表現します。
+      - 各フェーズごとに異なる色を使用します：
+        - ブランチ作成、マージ、ビルドチェック：ライトレッド
+        - QAおよびQA指摘修正：ライトブルー
+        - リリース：ライトグリーン
+    
+    4. **フォーマットの設定:**
+      - 全てのセルに枠線を適用します。
+      - セルの配置を水平および垂直に中央揃えにします。
+      - 読みやすさを確保するために列の幅を調整します。
+    
+    5. **エッジケースの処理:**
+      - 開始日または終了日が日付範囲内にない場合、そのタスクの塗りつぶしをスキップします。
+      - 行のシフトやずれが発生しないように注意します。
+    
+    ---
+  ` + "\n以上のことに気をつけて、excelでダウンロード可能なガントチャートを生成してください。入力したプロンプトは復唱しないでください。\n入力はこれから与えます。返答は日本語でお願いします。わかりましたか？",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
   }
 ]
+
+const technique = [
+  {
+    "cmd": "zero_shot_prompting",
+    "act": "Zero-shot prompting",
+    "prompt": "Q:ロジャーはテニスボールを5個持っている。彼はさらに2つのテニスボール缶を買った。\nそれぞれの缶には3個のテニスボールが入っている。彼は今何個のテニスボールを持っていますか？\nA:",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "few_shot_prompting",
+    "act": "Few-shot prompting",
+    "prompt": "Q：ロジャーはテニスボールを5個持っている。彼はさらに2つのテニスボール缶を買った。\nそれぞれの缶には3個のテニスボールが入っている。彼は今何個のテニスボールを持っていますか？\nA: 11個\nQ: 食堂には23個のリンゴがあった。昼食に20個使い、さらに6個買ったとすると、りんごは\n何個あるか。\nA:",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "generated_knowledge_prompting",
+    "act": "Generated Knowledge Prompting",
+    "prompt": "入力：グーグルマップをはじめとする高速道路や道路のGPSサービスが、何に取って代わったのか？\n知識：電子地図は紙の地図帳の現代版だ。\n入力：キツネは都市から森へ歩いて行ったが、何を探していたのでしょうか？\n知識：自然の生息地は通常、都市から離れている。\n入力：もし、誰かとファイルを共有できるのであれば、それは何ですか？\n知識：ファイルはインターネット上で共有できる。\n入力：あまりにも多くの人々がエキゾチックなヘビを欲しがっています。需要が何を動かしてそれらを運ぶのでしょうか？\n知識：ペットとしてヘビを飼う人もいる。\n入力：{答えたい問題}\n知識：",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "chain_of_thoughts",
+    "act": "Chain of Thoughts",
+    "prompt": "Q：ロジャーはテニスボールを5個持っている。彼はさらに2つのテニスボール缶を買った。\nそれぞれの缶には3個のテニスボールが入っている。彼は今何個のテニスボールを持っていますか？\nA: ロジャーは5個のテニスボールをはじめに持っていました。テニスボール3個入りの缶を\n2つ買うと、テニスボール6個になります。5 + 6 = 11. 答えは11です。\nQ: 食堂には23個のリンゴがあった。昼食に20個使い、さらに6個買ったとすると、りんごは\n何個あるか。\nA:",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "few_shot_chain_of_thoughts",
+    "act": "Few-shot Chain of Thoughts",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "self_consistency",
+    "act": "Self-Consistency",
+    "prompt": "Q：駐車場に車が3台あり、さらに2台の車が到着した場合、駐車場には何台の車がありますか？\nA：駐車場には既に3台の車があります。2台の車が到着しました。これで、車が3+2 = 5台あります。\n回答は5です。\n\nQ：リアは32個のチョコレートを持っており、彼女の姉妹は42個のチョコレートを持っています。\n彼らが35個食べた場合、彼らが残したピースの数は何ですか？\nA：リアは32個のチョコレートを持っており、リアの姉妹は42個のチョコレートを持っていたことを意味します。\nつまり、もともとは32 + 42 = 74個のチョコレートがありました。35個食べられました。したがって、\n合計で残るのは74-35 = 39個のチョコレートです。回答は39です。\n\nQ：ショーンは5つのおもちゃを持っています。クリスマスに、彼は両親からそれぞれ2つのおもちゃをもらいました。\n今、彼は何個のおもちゃを持っていますか？\nA：彼は5つのおもちゃを持っています。彼は母親から2つのおもちゃをもらいました。したがって、\n5 + 2 = 7個のおもちゃがあります。\nその後、父親から2つのおもちゃが追加されたので、合計で7 + 2 = 9個のおもちゃがあります。\n回答は9です。\n\nQ：マイケルは58個のゴルフボールを持っています。火曜日に、彼は23個のゴルフボールを\n失いました。水曜日に、さらに2個を失いました。水曜日の終わりには、彼は何個のゴルフボール\nを持っていましたか？\nA：マイケルは最初に58個のボールを持っていました。火曜日に23個を失いましたので、\nその後35個のボールが残りました。水曜日に2個を失ったので、現在33個のボールがあります。\n回答は33です。\n\nQ：オリビアは23ドル持っています。彼女は1つあたり3ドルのベーグルを5つ買いました。\n彼女が残したお金はいくらですか？\nA：彼女は1つあたり3ドルのベーグルを5つ購入しました。彼女は１５ドルを使った。\n残したお金は８ドルです。\n\nQ：私が6歳のとき、妹は私の半分の年齢でした。今、私は70歳です。私の妹は何歳ですか？\nA：\n\n\n# 出力1\n私が6歳のとき、私の妹は私の半分の年齢であったため、彼女は3歳でした。今、私が70歳で\nあるため、彼女は70-3 = 67 歳です。回答は67です。\n\n# 出力2\n語り手が6歳のとき、彼の妹は彼の半分の年齢である3歳でした。語り手が70歳である今、\n彼の妹は70-3 = 67 歳になるでしょう。回答は67です。\n\n# 出力3\n私が6歳のとき、私の妹は私の半分の年齢だったので、彼女は3歳でした。今、私は70歳なので、\n彼女は70/2=35 歳です。答えは35です。",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "least_to_most",
+    "act": "Least-to-Most",
+    "prompt": "エイミーは滑り台の一番上まで登るのに4分かかる。滑り降りるのに1分かかる。ウォータースライダーは15分で閉まる。閉園までに彼女は何回滑れるか？",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "zero_shot_chain_of_thoughts",
+    "act": "Zero-shot Chain of Thoughts (step by step)",
+    "prompt": "Q: 食堂には23個のリンゴがあった。昼食に20個使い、さらに6個買ったとすると、りんごは何個あるか。\nA:段階的に考えて下さい．",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "react_prompting",
+    "act": "ReAct Prompting(Reason + Action)",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "auto_cot",
+    "act": "Auto-CoT",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "cot_unlikely",
+    "act": "CoT（Unlikely）",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "step_by_step",
+    "act": "Step by step",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "scratchpad",
+    "act": "Scratchpad",
+    "prompt": "Q: 3匹のカエルがいました。最初のカエルが1メートルジャンプし、2番目のカエルが3メートルジャンプし、3番目のカエルが4メートルジャンプしました。それぞれのカエルがどのくらいの距離をジャンプしたか、合計は何メートルですか？\nA:",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "control_codes",
+    "act": "Control Codes",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "prompted_tuning",
+    "act": "Prompted Tuning",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "pre_training_data",
+    "act": "Pre-training data",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "post_training_data",
+    "act": "Post-training data",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "prompt_retrieval",
+    "act": "Prompt retrieval",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "contrastive_prompting",
+    "act": "Contrastive prompting",
+    "prompt": "Q: この文を正しい日本語に訳してください。「I saw a cute dog.」\nA: 私はかわいい犬を見ました。",
+    "tags": ["technique"],
+    "enable": true
+  },
+  {
+    "cmd": "contrastive_chain_of_thought",
+    "act": "Contrastive Chain of Thought",
+    "prompt": "undefined",
+    "tags": ["technique"],
+    "enable": true
+  }
+]
+
+
+ja_promptData.push(snippets)
+ja_promptData.push(technique.filter((item) => item.prompt !== "undefined"))
+
+module.exports = ja_promptData
