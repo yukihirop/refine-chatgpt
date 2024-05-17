@@ -1524,7 +1524,7 @@ const snippets = [
     "enable": true
   },
   {
-    "cdm": "release_gantt_chart",
+    "cmd": "release_gantt_chart",
     "act": "リリース・ガントチャート",
     "prompt": `
     **ガントチャート作成の手順:**
