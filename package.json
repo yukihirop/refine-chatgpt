@@ -6,13 +6,11 @@
   "author": "yukihirop <te108186@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "prepare": "husky install",
     "deploy": "node devscripts/convertToJson.js"
   },
   "devDependencies": {
     "husky": "^9.0.11",
     "pre-commit": "^1.2.2"
-  },
-  "pre-commit": [
-    "deploy"
-  ]
+  }
 }
