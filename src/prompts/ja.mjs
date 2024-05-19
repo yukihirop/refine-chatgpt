@@ -1668,6 +1668,20 @@ ChatGPT（及び他のLLM）の活用の上手さを図る指標をいくつか�
 - **データの匿名化**: 質問に含まれるデータや情報を匿名化して提供することで、セキュリティとプライバシーを確保しながら質問できます。`,
     "tags": ["snippets"],
     "enable": true
+  },
+  {
+    "cmd": "thx",
+    "act": "感謝の言葉",
+    "prompt": "ありがとうございます！",
+    "tags": ["snippets"],
+    "enable": true
+  },
+  {
+    "cmd": "fight",
+    "act": "頑張ってやってください！",
+    "prompt": "すごく頑張ってやってください！",
+    "tags": ["snippets"],
+    "enable": true
   }
 ]
 
