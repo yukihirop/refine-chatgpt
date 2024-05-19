@@ -1781,6 +1781,14 @@ ChatGPTの活用の仕方の上手さを図るための指標を以下に示し�
     "act": "attach resID",
     "prompt": `
 これから返答の頭と尾に[resID: ランダムな値]をつけてください。
+
+[resID: waoifio223] # これは具体例です。
+
+{あなたの返答}
+
+[resID: waoifio223]
+
+このフォーマットでお願いします。
 わかりましたか？`,
     "tags": ["snippets"],
     "enable": true
