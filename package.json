@@ -17,7 +17,7 @@
     "zx": "^8.1.0"
   },
   "lint-staged": {
-    "src/**/*.js": [
+    "src/**/*.{js,mjs}": [
       "npx gulp --gulpfile gulpfile.mjs",
       "git add ."
     ]
