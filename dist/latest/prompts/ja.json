@@ -101,7 +101,7 @@
   {
     "cmd": "res_id",
     "act": "attach resID",
-    "prompt": "\nこれから返答の頭と尾に[resID: ランダムな値]をつけてください。\n\n[resID: waoifio223] # これは具体例です。\n\n{あなたの返答}\n\n[resID: waoifio223]\n\nこのフォーマットでお願いします。\nわかりましたか？",
+    "prompt": "\nこれから返答の頭と尾に[resID: pwgenで生成したランダムな値]をつけてください。\n\n[resID: waoifio223] # これは具体例です。\n\n{あなたの返答}\n\n[resID: waoifio223]\n\nこのフォーマットでお願いします。\nわかりましたか？",
     "tags": [
       "snippets"
     ],
