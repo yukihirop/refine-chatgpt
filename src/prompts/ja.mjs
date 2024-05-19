@@ -1923,4 +1923,4 @@ const technique = [
 ja_promptData.push(...snippets)
 ja_promptData.push(...technique.filter((item) => item.prompt !== "undefined"))
 
-export default ja_promptData.filter(item => !!item.cmd).sort((a, b) => a.cmd.length - b.cmd.length)
+export default ja_promptData.filter(item => !!item.cmd && item.enable).sort((a, b) => a.cmd.length - b.cmd.length)
