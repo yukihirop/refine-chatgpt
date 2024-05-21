@@ -9,6 +9,15 @@
     "enable": true
   },
   {
+    "cmd": "do",
+    "act": "引用された質問を回答させる",
+    "prompt": "回答お願いします！",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
     "cmd": "thx",
     "act": "感謝の言葉",
     "prompt": "ありがとうございます！",
