@@ -1790,13 +1790,13 @@ ChatGPTの活用の仕方の上手さを図るための指標を以下に示し�
 
 ---
 
-### 提案された質問内容
+### 質問内容提案
 
-- {私が質問するべき内容1}
-- {私が質問するべき内容2}
-- {私が質問するべき内容3}
-- {私が質問するべき内容4}
-- {私が質問するべき内容5}
+- Q1. {私が質問するべき内容1}
+- Q2. {私が質問するべき内容2}
+- Q3. {私が質問するべき内容3}
+- Q4. {私が質問するべき内容4}
+- Q5. {私が質問するべき内容5}
 
 [resID: waoifio223]
 
@@ -1811,7 +1811,42 @@ ChatGPTの活用の仕方の上手さを図るための指標を以下に示し�
     "prompt": "回答お願いします！",
     "tags": ["snippets"],
     "enable": true
-  }
+  },
+  {
+    "cmd": "q1",
+    "act": "Q1を実行",
+    "prompt": "Q1を実行してください。",
+    "tags": ["snippets"],
+    "enable": true
+  },
+  {
+    "cmd": "q2",
+    "act": "Q2を実行",
+    "prompt": "Q2を実行してください。",
+    "tags": ["snippets"],
+    "enable": true
+  },
+  {
+    "cmd": "q3",
+    "act": "Q3を実行",
+    "prompt": "Q3を実行してください。",
+    "tags": ["snippets"],
+    "enable": true
+  },
+  {
+    "cmd": "q4",
+    "act": "Q4を実行",
+    "prompt": "Q4を実行してください。",
+    "tags": ["snippets"],
+    "enable": true
+  },
+  {
+    "cmd": "q5",
+    "act": "Q5を実行",
+    "prompt": "Q5を実行してください。",
+    "tags": ["snippets"],
+    "enable": true
+  },
 ]
 
 const technique = [
