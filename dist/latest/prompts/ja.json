@@ -99,6 +99,15 @@
     "enable": true
   },
   {
+    "cmd": "coda",
+    "act": "コードをtxtファイルにアグリゲートする",
+    "prompt": "\n以下はソースコードのプロジェクトルートで実行することで、ソースコードのダンプを.txt形式でダンプするシェルスクリプトです。\n\n```\n#!/bin/bash\n\n# バイナリファイルかどうかを判定する関数\nis_binary_file() {\n  local file=\"$1\"\n  local file_output\n  file_output=$(file \"$file\")\n  \n  if [[ \"$file_output\" == *\"text\"* ]]; then\n    return 1  # テキストファイルの場合\n  else\n    return 0  # バイナリファイルの場合\n  fi\n}\n\n# フォルダ名の取得\nfolder_name=$(basename \"$PWD\")\n\n# 出力ファイル名を設定\noutput_file=\"${folder_name}.txt\"\n\n# 出力ファイルを新規作成または上書き\n> \"$output_file\"\n\n# find コマンドの出力を取得し、ファイルに保存\necho \"## Find Output\" | tee -a \"$output_file\"\nfind . -type f -exec ls -lh {} ; | tee -a \"$output_file\"\n\n# ソースコードセクションの開始\necho \"## Source Code\" | tee -a \"$output_file\"\n\n# find コマンドを使用してすべてのファイルを取得\nfind_output=$(find . -type f)\n\nwhile IFS= read -r line; do\n  if [[ $line != \"./$output_file\" ]] && ! is_binary_file \"$line\"; then\n    file_size=$(stat -c%s \"$line\")\n    if (( file_size <= 10240 )); then\n      {\n        echo \"```file:$line\"\n        cat \"$line\"\n        echo \"```\"\n        echo\n      } | tee -a \"$output_file\"\n      echo \"Processed: $line\"\n    else\n      echo \"Ignored (file too large): $line\"\n    fi\n  else\n    [[ $line == \"./$output_file\" ]] && echo \"Ignored (output file): $line\" || echo \"Ignored (binary file): $line\"\n  fi\ndone <<< \"$find_output\"\n\n# 出力ファイルサイズのセクション\noutput_file_size=$(stat -c%s \"$output_file\")\necho \"## Output File Size\" | tee -a \"$output_file\"\necho \"Output file size: $output_file_size bytes\" | tee -a \"$output_file\"\n```\n\n\n今からgithubのソースコードをまとめたzipを渡すので、上記のShellを実行し.txtファイルをダウンロードさせてください。標準出力についてはChat上に表示する必要はありません。\n    \n    ",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
     "cmd": "fight",
     "act": "頑張ってやってください！",
     "prompt": "すごく頑張ってやってください！",

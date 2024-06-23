@@ -9,6 +9,60 @@
     "enable": true
   },
   {
+    "cmd": "do",
+    "act": "引用された質問を回答させる",
+    "prompt": "回答お願いします！",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "q1",
+    "act": "Q1を実行",
+    "prompt": "Q1を実行してください。",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "q2",
+    "act": "Q2を実行",
+    "prompt": "Q2を実行してください。",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "q3",
+    "act": "Q3を実行",
+    "prompt": "Q3を実行してください。",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "q4",
+    "act": "Q4を実行",
+    "prompt": "Q4を実行してください。",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "q5",
+    "act": "Q5を実行",
+    "prompt": "Q5を実行してください。",
+    "tags": [
+      "snippets"
+    ],
+    "enable": true
+  },
+  {
     "cmd": "thx",
     "act": "感謝の言葉",
     "prompt": "ありがとうございます！",
@@ -41,6 +95,15 @@
     "prompt": "ヨギとして行動してください。生徒に安全で効果的なポーズを指導し、個々のニーズに合わせたパーソナライズされたシーケンスを作成し、瞑想セッションやリラクゼーション技術を指導し、心と体を落ち着かせることに焦点を当てた雰囲気を育み、全体的な幸福感を向上させるためのライフスタイルの調整に関するアドバイスを提供してください。最初の提案リクエストは「地元のコミュニティセンターで初心者向けのヨガクラスを教える手助けが必要です」です。",
     "tags": [
       "awesome-chatgpt-prompts"
+    ],
+    "enable": true
+  },
+  {
+    "cmd": "coda",
+    "act": "コードをtxtファイルにアグリゲートする",
+    "prompt": "\n以下はソースコードのプロジェクトルートで実行することで、ソースコードのダンプを.txt形式でダンプするシェルスクリプトです。\n\n```\n#!/bin/bash\n\n# バイナリファイルかどうかを判定する関数\nis_binary_file() {\n  local file=\"$1\"\n  local file_output\n  file_output=$(file \"$file\")\n  \n  if [[ \"$file_output\" == *\"text\"* ]]; then\n    return 1  # テキストファイルの場合\n  else\n    return 0  # バイナリファイルの場合\n  fi\n}\n\n# フォルダ名の取得\nfolder_name=$(basename \"$PWD\")\n\n# 出力ファイル名を設定\noutput_file=\"${folder_name}.txt\"\n\n# 出力ファイルを新規作成または上書き\n> \"$output_file\"\n\n# find コマンドの出力を取得し、ファイルに保存\necho \"## Find Output\" | tee -a \"$output_file\"\nfind . -type f -exec ls -lh {} ; | tee -a \"$output_file\"\n\n# ソースコードセクションの開始\necho \"## Source Code\" | tee -a \"$output_file\"\n\n# find コマンドを使用してすべてのファイルを取得\nfind_output=$(find . -type f)\n\nwhile IFS= read -r line; do\n  if [[ $line != \"./$output_file\" ]] && ! is_binary_file \"$line\"; then\n    file_size=$(stat -c%s \"$line\")\n    if (( file_size <= 10240 )); then\n      {\n        echo \"```file:$line\"\n        cat \"$line\"\n        echo \"```\"\n        echo\n      } | tee -a \"$output_file\"\n      echo \"Processed: $line\"\n    else\n      echo \"Ignored (file too large): $line\"\n    fi\n  else\n    [[ $line == \"./$output_file\" ]] && echo \"Ignored (output file): $line\" || echo \"Ignored (binary file): $line\"\n  fi\ndone <<< \"$find_output\"\n\n# 出力ファイルサイズのセクション\noutput_file_size=$(stat -c%s \"$output_file\")\necho \"## Output File Size\" | tee -a \"$output_file\"\necho \"Output file size: $output_file_size bytes\" | tee -a \"$output_file\"\n```\n\n\n今からgithubのソースコードをまとめたzipを渡すので、上記のShellを実行し.txtファイルをダウンロードさせてください。標準出力についてはChat上に表示する必要はありません。\n    \n    ",
+    "tags": [
+      "snippets"
     ],
     "enable": true
   },
@@ -101,7 +164,7 @@
   {
     "cmd": "res_id",
     "act": "attach resID",
-    "prompt": "\nこれから返答の頭と尾に[resID: pwgenで生成したランダムな値]をつけてください。\nまた、{あなたの返答}に対して、この会話のやり取りがスムーズになるように、\n私が質問するべき内容を考えて５つ提案してください。\n\n[resID: waoifio223] # これは具体例です。\n\n{あなたの返答}\n\n[resID: waoifio223]\n\n---\n### 提案された質問内容\n\n- {私が質問するべき内容1}\n- {私が質問するべき内容2}\n- {私が質問するべき内容3}\n- {私が質問するべき内容4}\n- {私が質問するべき内容5}\n\nこのフォーマットでお願いします。\nわかりましたか？",
+    "prompt": "\n- これから返答の頭と尾に[resID: pwgenで生成したランダムな値]をつけてください。\n- ここまでのやり取りの全ての履歴を「resID: 回答の一行要約」で列挙してください。\n- また、{あなたの返答}に対して、この会話のやり取りがスムーズになるように、私が質問するべき内容を考えて５つ提案してください。\n\n[resID: waoifio223] # これは具体例です。\n\n{あなたの返答}\n\n---\n\n### 履歴\n\n- waoifio223: あなたの回答の一行要約 # これは具体例です。\n\n### 質問内容提案\n\n- Q1. {私が質問するべき内容1}\n- Q2. {私が質問するべき内容2}\n- Q3. {私が質問するべき内容3}\n- Q4. {私が質問するべき内容4}\n- Q5. {私が質問するべき内容5}\n\n[resID: waoifio223]\n\nこのフォーマットでお願いします。\nわかりましたか？",
     "tags": [
       "snippets"
     ],

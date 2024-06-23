@@ -1851,6 +1851,79 @@ ChatGPTの活用の仕方の上手さを図るための指標を以下に示し�
     "tags": ["snippets"],
     "enable": true
   },
+  {
+    "cmd": "coda",
+    "act": "コードをtxtファイルにアグリゲートする",
+    "prompt": `
+以下はソースコードのプロジェクトルートで実行することで、ソースコードのダンプを.txt形式でダンプするシェルスクリプトです。
+
+\`\`\`
+#!/bin/bash
+
+# バイナリファイルかどうかを判定する関数
+is_binary_file() {
+  local file="$1"
+  local file_output
+  file_output=$(file "$file")
+  
+  if [[ "$file_output" == *"text"* ]]; then
+    return 1  # テキストファイルの場合
+  else
+    return 0  # バイナリファイルの場合
+  fi
+}
+
+# フォルダ名の取得
+folder_name=$(basename "$PWD")
+
+# 出力ファイル名を設定
+output_file="\$\{folder_name\}.txt"
+
+# 出力ファイルを新規作成または上書き
+> "$output_file"
+
+# find コマンドの出力を取得し、ファイルに保存
+echo "## Find Output" | tee -a "$output_file"
+find . -type f -exec ls -lh {} \; | tee -a "$output_file"
+
+# ソースコードセクションの開始
+echo "## Source Code" | tee -a "$output_file"
+
+# find コマンドを使用してすべてのファイルを取得
+find_output=$(find . -type f)
+
+while IFS= read -r line; do
+  if [[ $line != "./$output_file" ]] && ! is_binary_file "$line"; then
+    file_size=$(stat -c%s "$line")
+    if (( file_size <= 10240 )); then
+      {
+        echo "\`\`\`file:$line"
+        cat "$line"
+        echo "\`\`\`"
+        echo
+      } | tee -a "$output_file"
+      echo "Processed: $line"
+    else
+      echo "Ignored (file too large): $line"
+    fi
+  else
+    [[ $line == "./$output_file" ]] && echo "Ignored (output file): $line" || echo "Ignored (binary file): $line"
+  fi
+done <<< "$find_output"
+
+# 出力ファイルサイズのセクション
+output_file_size=$(stat -c%s "$output_file")
+echo "## Output File Size" | tee -a "$output_file"
+echo "Output file size: $output_file_size bytes" | tee -a "$output_file"
+\`\`\`
+
+
+今からgithubのソースコードをまとめたzipを渡すので、上記のShellを実行し.txtファイルをダウンロードさせてください。標準出力についてはChat上に表示する必要はありません。
+    
+    `,
+    "tags": ["snippets"],
+    "enable": true
+  }
 ]
 
 const technique = [
